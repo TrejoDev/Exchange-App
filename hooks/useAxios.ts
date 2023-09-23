@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { exchangeApi } from "@/api";
-import { RatesInterface } from "@/interface/rates";
+import { Latest } from "@/interface";
 
 export const useAxios = (url: string, ) => {
-  const [data, setData] = useState<RatesInterface>({
+  const [data, setData] = useState<Latest>({
                                                       success: false,
                                                       timestamp: 0,
                                                       base: "",
@@ -16,7 +16,7 @@ export const useAxios = (url: string, ) => {
 
     const fetchData = async () => {
         try {
-            const { data  } = await exchangeApi.get<RatesInterface>( url );
+            const { data  } = await exchangeApi.get<Latest>( url );
             setData( data )
             setIsLoading( true )
         } catch (error) {

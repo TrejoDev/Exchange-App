@@ -4,16 +4,17 @@ import { ChangeEvent, useContext } from "react"
 
 export const InputAmount = () => {
 
-  const { amount, setAmount  } = useContext( CurrencyContext );
+  const { baseAmount, setAmount  } = useContext( CurrencyContext );
 
   const handlerChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
-    setAmount( e.target.value );
+    const amount = (e.target.value);
+    setAmount( amount );
   }
 
   return (
       <Grid item xs={12} md>
         <TextField 
-        value={ amount }
+        value={ baseAmount }
         onChange={ handlerChange }
           label='Amount'
           fullWidth

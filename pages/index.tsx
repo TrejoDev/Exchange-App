@@ -1,21 +1,37 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
 
 import { InputAmount, Layout, SelectCurrency, SwitchCurrency } from "@/component";
 import { CurrencyContext } from "@/context";
+import { exchangeApi } from "@/api";
+import { Convert } from "@/interface";
 
 export default function HomePage() {
 
-  const { fromCurrency, setFromCurrency, toCurrency, setToCurrency, amount, setAmount, fetchData } = useContext( CurrencyContext );
+  const { fromCurrency, setFromCurrency, toCurrency, setToCurrency, baseAmount } = useContext( CurrencyContext );
+  const [resultCurrency, setResultCurrency] = useState(0);
 
-  fetchData( '' )
+  const handleRequest = async () => {
+    
+    try {
+      const { data  } = await exchangeApi.get<Convert>( '/convert',{  
+        params: {
+          from: fromCurrency,
+          to: toCurrency,
+          amount: baseAmount,
+        }
+      } );
+      setResultCurrency( data.result )
+    } catch (error) {
+        console.log(error)
+    } 
+  }
 
   useEffect(() => {
-    
-  }, [amount])
+    handleRequest();
+  }, [baseAmount, fromCurrency, toCurrency]);
   
-    
   return (
     <Layout title={"Exchange App"}>
       <Typography variant="h5" sx={{ mb: '2rem' }}>
@@ -28,15 +44,19 @@ export default function HomePage() {
         <SelectCurrency value={toCurrency} setValue={setToCurrency} label="To" />
       </Grid>
 
-      {/* {  amount ? 
+      {  baseAmount ? 
         (
         <Box sx={{ textAlign: "left", marginTop: "1rem"}}>
-          <Typography>{amount} {fromCurrency} =</Typography>
-          <Typography variant='h5' sx={{ marginTop: "5px", fontWeight: "bold"}}>{resultCurrency*firstAmount} {toCurrency}</Typography>
+          <Typography>{baseAmount} {fromCurrency} =</Typography>
+          <Typography variant='h5' sx={{ marginTop: "5px", fontWeight: "bold"}}>{ resultCurrency } {toCurrency}</Typography>
         </Box>
         ) : ""
-      } */}
+      }
       
     </Layout>
   )
 }
+
+
+
+
