@@ -4,8 +4,8 @@ import { useAxios } from '@/hooks';
 
 export interface CurrencyState {
   fromCurrency: string;
-  toCurrency:   string;
-  baseAmount:  string;
+  toCurrency: string;
+  baseAmount: string;
 }
 
 const Currency_INITIAL_STATE: CurrencyState = {
@@ -16,16 +16,16 @@ const Currency_INITIAL_STATE: CurrencyState = {
 
 export const CurrencyProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(currencyReducer, Currency_INITIAL_STATE);
-
   const { data, isLoading } = useAxios('/latest');
 
-  const setFromCurrency = ( currency: string ) => {
+
+  const setFromCurrency = (currency: string) => {
     dispatch({ type: '[fromCurrency] - SetCurrency', payload: currency })
   }
-  const setToCurrency = ( currency: string ) => {
+  const setToCurrency = (currency: string) => {
     dispatch({ type: '[toCurrency] - SetCurrency', payload: currency })
   }
-  const setAmount = ( amount: string ) => {
+  const setAmount = (amount: string) => {
     dispatch({ type: '[amount] - SetAmount', payload: amount })
   }
 
@@ -34,13 +34,13 @@ export const CurrencyProvider: FC<PropsWithChildren> = ({ children }) => {
       value={{
         ...state,
 
-         // Properties
-            data,
-            isLoading,
-         // Methods
-         setFromCurrency,
-         setToCurrency,
-         setAmount,
+        // Properties
+        data,
+        isLoading,
+        // Methods
+        setFromCurrency,
+        setToCurrency,
+        setAmount,
       }}
     >
       {children}

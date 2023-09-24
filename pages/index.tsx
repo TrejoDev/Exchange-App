@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 
 import { Box, Grid, Typography } from "@mui/material";
 
@@ -9,29 +9,34 @@ import { Convert } from "@/interface";
 
 export default function HomePage() {
 
-  const { fromCurrency, setFromCurrency, toCurrency, setToCurrency, baseAmount } = useContext( CurrencyContext );
+  const { fromCurrency, setFromCurrency, toCurrency, setToCurrency, baseAmount } = useContext(CurrencyContext);
   const [resultCurrency, setResultCurrency] = useState(0);
 
-  const handleRequest = async () => {
-    
+  const handleRequest = useCallback(async () => {
     try {
-      const { data  } = await exchangeApi.get<Convert>( '/convert',{  
+      const { data } = await exchangeApi.get<Convert>('/convert', {
         params: {
           from: fromCurrency,
           to: toCurrency,
           amount: baseAmount,
         }
-      } );
-      setResultCurrency( data.result )
+      });
+      setResultCurrency(data.result)
     } catch (error) {
-        console.log(error)
-    } 
+      console.log(error)
+    }
   }
+    ,
+    [baseAmount, fromCurrency, toCurrency],
+  )
+
+
+
 
   useEffect(() => {
     handleRequest();
-  }, [baseAmount, fromCurrency, toCurrency]);
-  
+  }, [baseAmount, fromCurrency, toCurrency, handleRequest]);
+
   return (
     <Layout title={"Exchange App"}>
       <Typography variant="h5" sx={{ mb: '2rem' }}>
@@ -39,20 +44,20 @@ export default function HomePage() {
       </Typography>
       <Grid container spacing={2}>
         <InputAmount />
-        <SelectCurrency value={fromCurrency} setValue={setFromCurrency} label="From"/>
+        <SelectCurrency value={fromCurrency} setValue={setFromCurrency} label="From" />
         <SwitchCurrency />
         <SelectCurrency value={toCurrency} setValue={setToCurrency} label="To" />
       </Grid>
 
-      {  baseAmount ? 
+      {baseAmount ?
         (
-        <Box sx={{ textAlign: "left", marginTop: "1rem"}}>
-          <Typography>{baseAmount} {fromCurrency} =</Typography>
-          <Typography variant='h5' sx={{ marginTop: "5px", fontWeight: "bold"}}>{ resultCurrency } {toCurrency}</Typography>
-        </Box>
+          <Box sx={{ textAlign: "left", marginTop: "1rem" }}>
+            <Typography>{baseAmount} {fromCurrency} =</Typography>
+            <Typography variant='h5' sx={{ marginTop: "5px", fontWeight: "bold" }}>{resultCurrency} {toCurrency}</Typography>
+          </Box>
         ) : ""
       }
-      
+
     </Layout>
   )
 }

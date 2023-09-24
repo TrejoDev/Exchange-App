@@ -4,24 +4,24 @@ import { ChangeEvent, useContext } from "react"
 
 export const InputAmount = () => {
 
-  const { baseAmount, setAmount  } = useContext( CurrencyContext );
+  const { baseAmount, setAmount } = useContext(CurrencyContext);
 
-  const handlerChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
+  const handlerChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const amount = (e.target.value);
-    setAmount( amount );
+    setAmount(amount);
   }
 
   return (
-      <Grid item xs={12} md>
-        <TextField 
-        value={ baseAmount }
-        onChange={ handlerChange }
-          label='Amount'
-          fullWidth
-          inputProps={{
-            type: 'number',
-          }}
-        />
-      </Grid>
+    <Grid item xs={12} md>
+      <TextField
+        value={baseAmount}
+        onChange={handlerChange}
+        label='Amount'
+        fullWidth
+        inputProps={{
+          type: 'number',
+        }}
+      />
+    </Grid>
   )
 }

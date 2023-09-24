@@ -10,7 +10,7 @@ import { CurrencyProvider } from '@/context';
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <CurrencyProvider>
-      <ThemeProvider theme={ lightTheme }>
+      <ThemeProvider theme={lightTheme}>
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>

@@ -10,7 +10,7 @@ interface ContextProps {
     baseAmount: string;
     // Methods
     setFromCurrency: (currency: string) => void;
-    setToCurrency: (currency: string) => void 
+    setToCurrency: (currency: string) => void
     setAmount: (currency: string) => void
 }
 

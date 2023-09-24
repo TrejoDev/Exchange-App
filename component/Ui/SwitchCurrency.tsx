@@ -8,7 +8,7 @@ import { CurrencyContext } from "@/context";
 export const SwitchCurrency = () => {
 
   const { fromCurrency, setFromCurrency, toCurrency, setToCurrency } = useContext(CurrencyContext)
-  
+
 
   const handleSwitch = () => {
     setFromCurrency(toCurrency);

@@ -4,10 +4,10 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 
 interface Props extends PropsWithChildren {
-    title: string;
+  title: string;
 }
 
-export const Layout: FC<Props> = ({title = '', children}) => {
+export const Layout: FC<Props> = ({ title = '', children }) => {
 
   const boxStyles = {
     background: "#fdfdfd",
@@ -21,15 +21,15 @@ export const Layout: FC<Props> = ({title = '', children}) => {
     position: "relative"
   }
 
-    return (
-      <Container sx={boxStyles}  maxWidth='md' >
-          <Head>
-            <title>{title}</title>
-          </Head>
-  
-          <Box sx={{padding:'10px 20px'}}>
-              {children}
-          </Box>
-      </Container>
-    )
-  }
+  return (
+    <Container sx={boxStyles} maxWidth='md' >
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      <Box sx={{ padding: '10px 20px' }}>
+        {children}
+      </Box>
+    </Container>
+  )
+}
