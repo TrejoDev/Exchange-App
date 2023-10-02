@@ -24,9 +24,9 @@ To learn more about Next.js, take a look at the following resources:
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## API used
-
+- The API changed, now you must check the CORS according to the browser. Last update
 ```
-https://api.exchangerate.host/latest
+https://api.exchangerate.host/
 ```
 
 ## Testing

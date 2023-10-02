@@ -16,8 +16,8 @@ const Currency_INITIAL_STATE: CurrencyState = {
 
 export const CurrencyProvider: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(currencyReducer, Currency_INITIAL_STATE);
-  const { data, isLoading } = useAxios('/latest');
-
+  const { data, isLoading } = useAxios('/live');
+  console.log(data)
 
   const setFromCurrency = (currency: string) => {
     dispatch({ type: '[fromCurrency] - SetCurrency', payload: currency })
